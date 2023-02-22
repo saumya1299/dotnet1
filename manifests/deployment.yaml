@@ -26,7 +26,7 @@ spec:
           # - Each init container must complete successfully before the next one starts.
       containers:
       - name:  walmartpayment-dev
-        image:  azacrshared.azurecr.io/walmartpayment:latest
+        image: saumyyaa.azurecr.io/saumyya/net:v1
         resources:
           requests:
             cpu:  100m
@@ -56,4 +56,6 @@ spec:
         - containerPort:  80
           name:  walmartdev
         imagePullPolicy: Always
+      imagePullSecrets:
+        - name: saumyaregistry
       restartPolicy: Always
