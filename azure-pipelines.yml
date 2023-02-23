@@ -2,6 +2,9 @@ trigger:
 - main
 - develop
 
+pool:
+resources: new
+
 variables:
  buildConfiguration: 'Release'
  imageRepository: saumyyyaaa/sam
