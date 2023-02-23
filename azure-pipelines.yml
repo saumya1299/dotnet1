@@ -13,6 +13,7 @@ variables:
  containerRegistry: pipelinee.azurecr.io
  k8sconnection: new connection
 
+stages:
 - stage: Build
   displayName: Build stage
   jobs:  
