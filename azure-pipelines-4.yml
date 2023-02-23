@@ -4,7 +4,7 @@ trigger:
 
 variables:
  buildConfiguration: 'Release'
- imageRepository: saumyyyaaa
+ imageRepository: saumyyyaaa/sam
  dockerfilePath: '**/Dockerfile'
  dockerRegistryServiceConnection: new
  tag: latest
@@ -75,4 +75,4 @@ variables:
               containers: |
                 $(containerRegistry)/$(imageRepository):$(tag)   
               kubernetesServiceConnection: $(k8connection)
-              arguments: 'n=wal,artdev'
+              arguments: 'n=walmartdev'
