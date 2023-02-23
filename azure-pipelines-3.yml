@@ -1,39 +1,27 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
-trigger:
+trigger: 
+- main
 - develop
-- feature/*
-
-
-resources:
-- repo: self
 
 variables:
-  buildConfiguration: 'Release'
-  dotNetFramework: 'net6.0'
-  repository: 'saumyyyaaa/sam'
-  namespace: 'walmartdev'
-  k8sconnection: 'kubewalmartdev'
-  containerRegistry: 'pipelinee.azurecr.io'
-  tags: 'latest'
-  imagepullSecret: test
-  vmImage: ubuntu-latest
-  dockerfilePath: '**/Dockerfile'
+ buildConfiguration: 'Release'
+ imageRepository: saumyyyaaa/sam
+ dockerfilePath: '**/Dockerfile'
+ dockerRegistryServiceConnection: assignment
+ tag: latest
+ imagepullSecret: test
+ k8Namespace: walmartdev
+ containerRegistry: pipelinee.azurecr.io
+ k8sconnection: new connection
 
-
-stages:
 - stage: Build
   displayName: Build stage
   jobs:  
   - job: Build
     displayName: Build job
     pool:
-      vmImage: $(vmImageName)
+      vmImage: ubuntu-latest
     steps:
-    - task: Docker@2  
+    - task: Docker@2
       displayName: Build and push an image to container registry
       inputs:
         command: buildAndPush
@@ -55,7 +43,7 @@ stages:
   - deployment: Deploy
     displayName: Deploy job
     pool:
-      vmImage: $(vmImageName)
+      vmImage: ubuntu-latest
     environment: 'dev' #customize with your environment
     strategy:
       runOnce:
@@ -85,6 +73,6 @@ stages:
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
-              arguments: '--n=walmartdev'
-  
+                $(containerRegistry)/$(imageRepository):$(tag)   
+              kubernetesServiceConnection: $(k8connection)
+              arguments: 'n=walmartdev'
