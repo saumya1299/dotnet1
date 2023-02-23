@@ -11,7 +11,7 @@ variables:
  imagepullSecret: test
  k8Namespace: walmartdev
  containerRegistry: pipelinee.azurecr.io
- k8sconnection: new connection
+ k8connection: new connection
 
 stages:
 - stage: Build
